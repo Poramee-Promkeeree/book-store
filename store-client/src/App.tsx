@@ -3,7 +3,7 @@ import Category from './models/Category'
 import { useEffect, useState } from 'react'
 import Book from './models/Book';
 import BookDetail from './components/BookDetail' ;
-
+import BookForm from './components/BookForm';
 
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
   useEffect(() => {
     fetchCategoryList()
     fetchBookList()
-  })
+  }, [filter])
 
 
   return (
@@ -42,7 +42,14 @@ function App() {
   
         <hr />
         <div>
-        {bookList.map(book => <div key={book.id}><BookDetail {...book}/> <hr /> </div> )}
+        {bookList.map(book => 
+      <div key={book.id}>
+        <BookDetail {...book}/>
+        <BookForm book={book} categoryList={categoryList}/>
+        <hr />
+        </div> 
+      )}
+
         </div>
  
       </div>
