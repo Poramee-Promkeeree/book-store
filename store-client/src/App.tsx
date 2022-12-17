@@ -23,6 +23,21 @@ function App() {
       setBookList(result)
     }
   }
+
+  const onCreateBook = async (book: Partial<Book>) => {
+    await Repo.books.create(book)
+    fetchBookList()
+  }
+
+  const onUpdateBook = async (book: Partial<Book>) => {
+    await Repo.books.update(book)
+    fetchBookList()
+  }
+
+  const onDeleteBook = async (id: number) => {
+    await Repo.books.delete(id)
+    fetchBookList()
+  }
   
   
 
@@ -33,28 +48,28 @@ function App() {
 
 
   return (
-      <div>
-        <hr /> 
-        <select onChange={e => setFilter(e.target.value)}>
-          <option value="">All</option>
-          {categoryList.map(category => <option key={category.id} value={category.id}>{category.title}</option>)}
-        </select>
-  
-        <hr />
-        <div>
-        {bookList.map(book => 
+    <div>
+    <div>
+      <BookForm book={{}} categoryList={categoryList} callbackFn={onCreateBook} />
+      <hr />
+    </div>
+    <div>
+      <select onChange={e => setFilter(e.target.value)}>
+        <option value={''}>All</option>
+        {categoryList.map(category => <option key={category.id} value={category.id}>{category.title}</option>)}
+      </select>
+      <hr />
+    </div>
+    {bookList.map(book =>
       <div key={book.id}>
-        <BookDetail {...book}/>
-        <BookForm book={book} categoryList={categoryList}/>
+        <BookDetail {...book} />
+        <BookForm book={book} categoryList={categoryList} callbackFn={onUpdateBook} />
+        <button onClick={e => onDeleteBook(book.id)}>Delete</button>
         <hr />
-        </div> 
-      )}
-
-        </div>
- 
       </div>
-
-  )
+    )}
+  </div>
+);
 }
 
 export default App;
