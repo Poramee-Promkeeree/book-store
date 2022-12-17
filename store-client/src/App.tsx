@@ -2,7 +2,7 @@ import Repo from './repositories'
 import Category from './models/Category'
 import { useEffect, useState } from 'react'
 import Book from './models/Book';
-import BookDetail from './components/BookDetail';
+import BookDetail from './components/BookDetail' ;
 
 
 
