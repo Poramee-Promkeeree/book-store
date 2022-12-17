@@ -1,7 +1,7 @@
 import axios from "axios";
 import config from "../config";
 import Book from "../models/Book";
-import { IRepository } from "./IRepository";
+import { IRepository } from "./IRepository" ;
 
 
 export class BookRepository implements IRepository<Book> {
